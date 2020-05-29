@@ -9,7 +9,7 @@ class SG_Related_Content{
     {
         $this->register_hooks();
     }
-    
+
     public function register_hooks()
     {
         // Admin hooks
@@ -23,8 +23,36 @@ class SG_Related_Content{
 
     function the_content_filter($content)
     {
-        $content .= "<br> This will be at the end.";
+        global $post;
+        if(empty($post)){
+            return $content;
+        }
+        $related_posts_query = $this->get_related_posts_query();
+        $content .= $this->get_widget_html($post, $related_posts_query);
         return $content;
+    }
+
+    private function get_widget_html($post, $related_posts_query, $args = [])
+    {
+        ob_start();
+        include __DIR__ . '/template.php';
+        $output = ob_get_clean();
+        wp_reset_postdata();
+        return $output;
+    }
+
+    private function get_related_posts_query()
+    {
+        global $post;
+        $tag_terms = wp_get_post_terms($post->ID);
+        $cat_terms = wp_get_post_terms($post->ID, 'category');
+        
+        $query_args = [
+            'post__in' => [1]
+        ];
+        $query = new WP_Query($query_args);
+        // var_dump($query->posts);
+        return $query;
     }
 
 
