@@ -14,7 +14,24 @@ if($related_posts_query->have_posts()):
         <?php the_title() ?>
     </a>
 </li>
-
+<li>
+    <a href="<?php the_permalink() ?>">
+        <?php the_post_thumbnail() ?>
+        <?php the_title() ?>
+    </a>
+</li>
+<li>
+    <a href="<?php the_permalink() ?>">
+        <?php the_post_thumbnail() ?>
+        <?php the_title() ?>
+    </a>
+</li>
+<li>
+    <a href="<?php the_permalink() ?>">
+        <?php the_post_thumbnail() ?>
+        <?php the_title() ?>
+    </a>
+</li>
 <?php endwhile ?>
 </ul>
 </div>
