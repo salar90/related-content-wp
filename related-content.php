@@ -15,13 +15,14 @@ Domain Path: /languages
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-// require_once __DIR__ . "/administration.php";
-// register_uninstall_hook(__FILE__, 'sg_api_stats_uninstall');
-// register_activation_hook( __FILE__, 'sg_api_stats_activation' );
-// register_deactivation_hook( __FILE__, 'sg_api_stats_deactivation' );
 
-function sg_init_related_content(){
-	include_once __DIR__ . "/class-wp-api-stats.php";
-	global $relatedContent;
-	$WP_API_Stats = new SG_API_Stats();
+include_once __DIR__ . "/class-related-content.php";
+function SG_related_content(){
+	static $rc;
+	if(empty($rc)){
+		$rc = new SG_Related_Content();
+		$rc->init();
+	}
+	return $rc;
 }
+SG_related_content();
