@@ -19,6 +19,12 @@ class SG_Related_Content{
 
         //non-admin hooks
         add_filter('the_content', [$this, 'the_content_filter'], 20);
+
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_front_styles']);
+    }
+
+    function enqueue_front_styles(){
+        wp_enqueue_style('sg-related-content', plugin_dir_url(__FILE__) . '/style.css');
     }
 
     function the_content_filter($content)
