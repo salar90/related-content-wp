@@ -153,6 +153,7 @@ class SG_Related_Content{
         $query_args = [
             'post__in' => $post_ids,
             'posts_per_page' => $post_limit,
+            'orderby' => 'post__in'
         ];
         
         $query = new WP_Query($query_args);
