@@ -35,6 +35,7 @@ class SG_Related_Content{
         }
         $related_posts_query = $this->get_related_posts_query();
         $content .= $this->get_widget_html($post, $related_posts_query);
+        wp_reset_postdata();
         return $content;
     }
 
@@ -88,16 +89,18 @@ class SG_Related_Content{
             $args = [
                 'posts_per_page' => 100,
                 'tag_id' => $term['term_id'],
-                'fields' => 'ids'
+                // 'fields' => 'ids'
             ];
             $query = new WP_Query($args);
             
-            foreach($query->posts as $post){
-                if(isset($posts[$post])){
-                    $posts[$post]['power'] += $term['power'];
+            foreach($query->posts as $post_data){
+                $post_id = $post_data->ID;
+                if(isset($posts[$post_id])){
+                    $posts[$post_id]['power'] += $term['power'];
                 }else{
-                    $posts[$post] = [
-                        'id' => $post,
+                    $posts[$post_id] = [
+                        'id' => $post_id,
+                        'title' => $post_data->post_title,
                         'power' => $term['power']
                     ];
                 }
@@ -111,33 +114,45 @@ class SG_Related_Content{
                 'fields' => 'ids'
             ];
             $query = new WP_Query($args);
-            foreach($query->posts as $post){
-                if(isset($posts[$post])){
-                    $posts[$post]['power'] += $term['power'];
+            foreach($query->posts as $post_data){
+                $post_id = $post_data->ID;
+                if(isset($posts[$post_id])){
+                    $posts[$post_id]['power'] += $term['power'];
                 }else{
-                    $posts[$post] = [
-                        'id' => $post,
+                    $posts[$post_id] = [
+                        'id' => $post_id,
+                        'title' => $post_data->post_title,
                         'power' => $term['power']
                     ];
                 }
             }
         }
 
-        $post_limit = 5;
+        $post_limit = 20;
+
+        foreach($posts as $key=>$post_data){
+            $posts[$key]['power'] += similar_text($posts[$key], $post->post_title)*10;
+        }
+
 
         usort($posts, function($a, $b){
             return $b['power'] - $a['power'];
         });
         $posts = array_slice($posts,0, $post_limit);
+        // echo "<br>" . json_encode($posts) . "<br>";
         $post_ids = array_map(function($post){
             return $post['id'];
         }, $posts);
+
+        $post_ids = array_filter($post_ids, function($id)use($post){
+            return $post->ID != $id;
+        });
 
         
 
         $query_args = [
             'post__in' => $post_ids,
-            'posts_per_page' => $post_limit
+            'posts_per_page' => $post_limit,
         ];
         
         $query = new WP_Query($query_args);
