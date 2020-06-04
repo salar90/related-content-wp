@@ -1,5 +1,6 @@
-.sg_related_posts {
-  background-color: #EEEEEE;
+.sg_related_posts .sg_related_posts_title {
+  margin-right: 8px;
+  margin-block-end: .5rem;
 }
 
 .sg_related_posts ul.sg_related_posts_list {
@@ -8,6 +9,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  line-height: 1.2;
 }
 
 .sg_related_posts ul.sg_related_posts_list li {
