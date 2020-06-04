@@ -48,7 +48,7 @@ class SG_Related_Content{
         return $output;
     }
 
-    private function get_related_posts_query($count = 5)
+    private function get_related_posts_query($post_limit = 20)
     {
         global $post;
         $tag_terms = wp_get_post_terms($post->ID);
@@ -89,7 +89,6 @@ class SG_Related_Content{
             $args = [
                 'posts_per_page' => 100,
                 'tag_id' => $term['term_id'],
-                // 'fields' => 'ids'
             ];
             $query = new WP_Query($args);
             
@@ -128,10 +127,10 @@ class SG_Related_Content{
             }
         }
 
-        $post_limit = 20;
-
         foreach($posts as $key=>$post_data){
-            $posts[$key]['power'] += similar_text($posts[$key], $post->post_title)*10;
+            $similarity = 0;
+            similar_text($post_data['title'], $post->post_title, $similarity);
+            $posts[$key]['power'] += $similarity;
         }
 
 
@@ -139,7 +138,7 @@ class SG_Related_Content{
             return $b['power'] - $a['power'];
         });
         $posts = array_slice($posts,0, $post_limit);
-        // echo "<br>" . json_encode($posts) . "<br>";
+
         $post_ids = array_map(function($post){
             return $post['id'];
         }, $posts);
@@ -153,7 +152,8 @@ class SG_Related_Content{
         $query_args = [
             'post__in' => $post_ids,
             'posts_per_page' => $post_limit,
-            'orderby' => 'post__in'
+            'orderby' => 'post__in',
+            'ignore_sticky_posts' => 1
         ];
         
         $query = new WP_Query($query_args);
