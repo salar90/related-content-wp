@@ -16,6 +16,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+function related_content_load_plugin_textdomain() {
+    load_plugin_textdomain( 'related-content', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'related_content_load_plugin_textdomain' );
+
 include_once __DIR__ . "/class-related-content.php";
 function SG_related_content(){
 	static $rc;
