@@ -1,6 +1,10 @@
+.sg_related_posts {
+  margin-top: 1rem;
+}
+
 .sg_related_posts .sg_related_posts_title {
   margin-right: 8px;
-  margin-block-end: .5rem;
+  margin-bottom: 8px;
 }
 
 .sg_related_posts ul.sg_related_posts_list {
@@ -15,7 +19,7 @@
 .sg_related_posts ul.sg_related_posts_list li {
   display: block;
   width: calc(100% - 16px);
-  margin: 0 8px;
+  margin: 0 8px 8px;
 }
 
 @media (min-width: 768px) {
@@ -34,4 +38,8 @@
   .sg_related_posts ul.sg_related_posts_list li {
     width: calc(25% - 16px);
   }
+}
+
+.sg_related_posts ul.sg_related_posts_list li img {
+  display: block;
 }
