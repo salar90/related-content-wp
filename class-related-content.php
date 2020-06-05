@@ -17,6 +17,8 @@ class SG_Related_Content{
 
         }
 
+        add_action('wp_ajax_nopriv_sg_related_posts', [$this, 'related_posts_ajax']);
+
         //non-admin hooks
         add_filter('the_content', [$this, 'the_content_filter'], 20);
 
@@ -48,9 +50,11 @@ class SG_Related_Content{
         return $output;
     }
 
-    private function get_related_posts_query($post_limit = 4)
+    private function get_related_posts_query($post_id = null, $post_limit = 4)
     {
-        global $post;
+        // get post from ID or GLOBALS
+        $post = get_post($post_id);
+
         $tag_terms = wp_get_post_terms($post->ID);
 
         
@@ -159,6 +163,39 @@ class SG_Related_Content{
         $query = new WP_Query($query_args);
         
         return $query;
+    }
+
+    function related_posts_ajax()
+    {
+        $count = filter_input(INPUT_POST, 'count', FILTER_SANITIZE_NUMBER_INT);
+        $post_id = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+
+        $related_posts_query = $this->get_related_posts_query($post_id, $count);
+
+        $entries = [];
+
+        while($related_posts_query->have_posts()){
+            $related_posts_query->the_post();
+            $post = get_post();
+            $thumbnail_id = get_post_thumbnail_id();
+            $entry = [
+                'id' => $post->ID,
+                'title' => get_the_title(),
+                'excerpt' => get_the_excerpt(),
+                'url' => get_the_permalink(),
+                'thumbnail' => get_the_post_thumbnail_url(null, 'medium'),
+                'srcset' => wp_get_attachment_image_srcset($thumbnail_id)
+            ];
+            $entries[] = $entry;
+        }
+
+        $response = [
+            'entries' => $entries,
+            'time' => date(DATE_ISO8601)
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        die();  
     }
 
 
