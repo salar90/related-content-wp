@@ -18,6 +18,7 @@ class SG_Related_Content{
         }
 
         add_action('wp_ajax_nopriv_sg_related_posts', [$this, 'related_posts_ajax']);
+        add_action('wp_ajax_sg_related_posts', [$this, 'related_posts_ajax']);
 
         //non-admin hooks
         add_filter('the_content', [$this, 'the_content_filter'], 20);
@@ -26,7 +27,22 @@ class SG_Related_Content{
     }
 
     function enqueue_front_styles(){
+        global $post;
         wp_enqueue_style('sg-related-content', plugin_dir_url(__FILE__) . '/style.css');
+
+        if(is_singular('post')){
+            wp_enqueue_script('sd-related-content-script', plugin_dir_url(__FILE__) . '/front.js', ['jquery'],false, true);
+            
+            wp_localize_script(
+                'sd-related-content-script', 
+                'related_content_object',
+                [
+                    'ajax_url' => admin_url( 'admin-ajax.php' ),
+                    'post_id' => $post->ID ?? null
+                ] 
+            );
+
+        }
     }
 
     function the_content_filter($content)
@@ -167,8 +183,8 @@ class SG_Related_Content{
 
     function related_posts_ajax()
     {
-        $count = filter_input(INPUT_POST, 'count', FILTER_SANITIZE_NUMBER_INT);
-        $post_id = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+        $count = filter_input(INPUT_GET, 'count', FILTER_SANITIZE_NUMBER_INT);
+        $post_id = filter_input(INPUT_GET, 'post_id', FILTER_SANITIZE_NUMBER_INT);
 
         $related_posts_query = $this->get_related_posts_query($post_id, $count);
 
