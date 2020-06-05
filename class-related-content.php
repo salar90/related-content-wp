@@ -48,7 +48,7 @@ class SG_Related_Content{
         return $output;
     }
 
-    private function get_related_posts_query($post_limit = 20)
+    private function get_related_posts_query($post_limit = 4)
     {
         global $post;
         $tag_terms = wp_get_post_terms($post->ID);
