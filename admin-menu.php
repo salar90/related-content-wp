@@ -6,9 +6,9 @@
 <div class="rc-row">
     <label>
         <?php _e('Display position', 'related-content') ?>
-        <select name="display-position">
+        <select name="display_position">
             <option value="inside_post_bottom">Post bottom, inside</option>
-            <option value="inside_post_bottom">After post</option>
+            <option value="after_post">After post</option>
         </select>
     </label>
 </div>
@@ -16,7 +16,7 @@
 <div class="rc-row">
     <label>
         <?php _e('Post count', 'related-content') ?>
-        <input type="number" min="2" max="6">
+        <input name="post_count" type="number" min="2" max="6">
     </label>
 </div>
 
