@@ -17,6 +17,8 @@ class SG_Related_Content{
 
         }
 
+        add_action( 'admin_menu', [$this, 'register_menu_page'] );
+        
         add_action('wp_ajax_nopriv_sg_related_posts', [$this, 'related_posts_ajax']);
         add_action('wp_ajax_sg_related_posts', [$this, 'related_posts_ajax']);
 
@@ -24,6 +26,23 @@ class SG_Related_Content{
         add_filter('the_content', [$this, 'the_content_filter'], 20);
 
         add_action('wp_enqueue_scripts', [$this, 'enqueue_front_styles']);
+    }
+
+    function menu_page()
+    {
+        echo '<h1>welcome</h1>';
+    }
+
+    function register_menu_page() {
+        add_menu_page(
+            __( 'Related Content', 'related-content' ),
+            __( 'Related Content', 'related-content' ),
+            'manage_options',
+            'related-content',
+            [$this, 'menu_page'],
+            plugins_url( 'myplugin/images/icon.png' ),
+            6
+        );
     }
 
     function enqueue_front_styles(){
