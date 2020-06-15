@@ -242,5 +242,27 @@ class SG_Related_Content{
         die();  
     }
 
+    public function get_settings($key = null, $forceRefresh = false)
+    {
+        
+        if(empty($this->settings) || $forceRefresh){
+            $settings = get_option('sg_rc_settings');
+        }
+        
+        if(empty($settings)){
+            $settings = [
+                'posts_count' => 4,
+                'display_position' => 'inside_post_bottom'
+            ];
+            update_option('sg_rc_settings', $settings);
+        }
+
+        if(empty($key)){
+            return $settings;
+        }elseif(isset($settings[$key])){
+            return $settings[$key];
+        }
+        return null;
+    }
 
 } 
