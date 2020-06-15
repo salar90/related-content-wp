@@ -30,7 +30,7 @@ class SG_Related_Content{
 
     function menu_page()
     {
-        echo '<h1>welcome</h1>';
+        include __DIR__ . '/admin-menu.php';
     }
 
     function register_menu_page() {
@@ -40,7 +40,7 @@ class SG_Related_Content{
             'manage_options',
             'related-content',
             [$this, 'menu_page'],
-            plugins_url( 'myplugin/images/icon.png' ),
+            'dashicons-admin-links',
             6
         );
     }
