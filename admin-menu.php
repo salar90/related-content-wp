@@ -7,8 +7,8 @@
     <label>
         <?php _e('Display position', 'related-content') ?>
         <select name="display_position">
-            <option value="inside_post_bottom">Post bottom, inside</option>
-            <option value="after_post">After post</option>
+            <option <?php selected(SG_related_content()->get_settings('display_position'), 'inside_post_bottom') ?> value="inside_post_bottom">Post bottom, inside</option>
+            <option <?php selected(SG_related_content()->get_settings('display_position'), 'after_post') ?> value="after_post">After post</option>
         </select>
     </label>
 </div>
@@ -16,7 +16,7 @@
 <div class="rc-row">
     <label>
         <?php _e('Post count', 'related-content') ?>
-        <input name="post_count" type="number" min="2" max="6">
+        <input value="<?php echo SG_related_content()->get_settings('post_count') ?>" name="post_count" type="number" min="2" max="6">
     </label>
 </div>
 

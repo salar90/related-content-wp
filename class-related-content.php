@@ -251,7 +251,7 @@ class SG_Related_Content{
         
         if(empty($settings)){
             $settings = [
-                'posts_count' => 4,
+                'post_count' => 4,
                 'display_position' => 'inside_post_bottom'
             ];
             update_option('sg_rc_settings', $settings);
