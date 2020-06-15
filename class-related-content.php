@@ -19,6 +19,8 @@ class SG_Related_Content{
 
         add_action( 'admin_menu', [$this, 'register_menu_page'] );
         
+        add_action( 'admin_enqueue_scripts', [$this, 'enqueue_admin_styles'] );
+        
         add_action('wp_ajax_nopriv_sg_related_posts', [$this, 'related_posts_ajax']);
         add_action('wp_ajax_sg_related_posts', [$this, 'related_posts_ajax']);
 
@@ -31,6 +33,13 @@ class SG_Related_Content{
     function menu_page()
     {
         include __DIR__ . '/admin-menu.php';
+    }
+
+    function enqueue_admin_styles( $hook ) {
+        if ( 'toplevel_page_related-content' != $hook ) {
+            return;
+        }
+        wp_enqueue_style( 'related_content', plugin_dir_url( __FILE__ ) . 'admin-styles.css' );
     }
 
     function register_menu_page() {
