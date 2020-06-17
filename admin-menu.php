@@ -2,7 +2,8 @@
 <h1><?php _e('Related Content', 'related-content') ?></h1>
 <hr>
 
-<form action="">
+<form action="" method="post">
+<input type="hidden" name="sg_related_content_save" value="1">
 <div class="rc-row">
     <label>
         <?php _e('Display position', 'related-content') ?>
@@ -18,6 +19,10 @@
         <?php _e('Post count', 'related-content') ?>
         <input value="<?php echo SG_related_content()->get_settings('post_count') ?>" name="post_count" type="number" min="2" max="6">
     </label>
+</div>
+
+<div class="rc-row">
+    <button type="submit" class="button"><?php _e('Save Settings', 'related-content') ?></button>
 </div>
 
 

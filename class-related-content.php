@@ -4,7 +4,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 class SG_Related_Content{
-    
+
+    protected $optionsKey = 'sg_rc_settings';
     function init()
     {
         $this->register_hooks();
@@ -32,6 +33,16 @@ class SG_Related_Content{
 
     function menu_page()
     {
+        $is_submit = filter_input(INPUT_POST, 'sg_related_content_save') == '1';
+
+        if($is_submit){
+            $newSettings = [
+                'display_position' => filter_input(INPUT_POST, 'display_position'),
+                'post_count' => filter_input(INPUT_POST, 'post_count')
+            ];
+            update_option($this->optionsKey, $newSettings);
+        }
+
         include __DIR__ . '/admin-menu.php';
     }
 
@@ -246,7 +257,7 @@ class SG_Related_Content{
     {
         
         if(empty($this->settings) || $forceRefresh){
-            $settings = get_option('sg_rc_settings');
+            $settings = get_option($this->optionsKey);
         }
         
         if(empty($settings)){
@@ -254,7 +265,7 @@ class SG_Related_Content{
                 'post_count' => 4,
                 'display_position' => 'inside_post_bottom'
             ];
-            update_option('sg_rc_settings', $settings);
+            update_option($this->optionsKey, $settings);
         }
 
         if(empty($key)){
