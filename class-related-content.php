@@ -76,7 +76,7 @@ class SG_Related_Content{
     function the_content_filter($content)
     {
         global $post;
-        if(empty($post)){
+        if(empty($post) || !is_singular('post')){
             return $content;
         }
         $related_posts_query = $this->get_related_posts_query();
