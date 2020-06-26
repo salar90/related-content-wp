@@ -12,7 +12,19 @@
             dataType: 'json',
             method: 'GET',
             success: function (response) {
-                console.log(response)
+                let list = $('.sg_related_posts_list');
+                response.entries.forEach((v, i)=>{
+                    let anchor = $(`<a target="_blank"></a>`);
+                    anchor.attr('href', v.url);
+
+                    let image = $('<img>');
+                    image.attr('alt', v.title);
+                    image.attr('src', v.thumbnail);
+                    image.attr('srcset', v.srcset);
+                    image.appendTo(anchor);
+                    $('<li>').append(anchor).appendTo(list);
+
+                });
             },
             error: function(xhr){
                 console.log(xhr.jsonResponse);
