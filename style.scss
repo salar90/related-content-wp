@@ -18,6 +18,8 @@
             display: block;
             width: calc(100% - 16px);
             margin: 0 8px 8px;
+            border-radius: 16px;;
+            overflow: hidden;
             @media (min-width: 768px) {
                 width: calc(50% - 16px);
             }
@@ -28,8 +30,26 @@
                 width: calc(25% - 16px);
             }
 
-            img{
+            a{
                 display: block;
+                position: relative;
+                img{
+                    display: block;
+                    width: 100%;
+                    height: 180px;
+                    object-fit: cover;
+                }
+                span{
+                    display: block;
+                    text-align: center;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    padding: 8px;
+                    background: rgba(0,0,0,.4);
+                    color: #FFF;
+                }
             }
         }
     }
