@@ -22,6 +22,16 @@
 </div>
 
 <div class="rc-row">
+    <label>
+        <?php _e('Loading mode', 'related-content') ?>
+        <select name="loading_mode" id="loading_mode">
+            <option <?php selected(SG_related_content()->get_settings('loading_mode'), 'ajax') ?> value="ajax">Ajax</option>
+            <option <?php selected(SG_related_content()->get_settings('loading_mode'), 'static') ?>  value="static">Static</option>
+        </select>
+    </label>
+</div>
+
+<div class="rc-row">
     <button type="submit" class="button"><?php _e('Save Settings', 'related-content') ?></button>
 </div>
 

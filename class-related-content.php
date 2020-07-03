@@ -38,7 +38,9 @@ class SG_Related_Content{
         if($is_submit){
             $newSettings = [
                 'display_position' => filter_input(INPUT_POST, 'display_position'),
-                'post_count' => filter_input(INPUT_POST, 'post_count')
+                'post_count' => filter_input(INPUT_POST, 'post_count'),
+                'loading_mode' => filter_input(INPUT_POST, 'loading_mode'),
+                
             ];
             update_option($this->optionsKey, $newSettings);
         }
@@ -71,13 +73,14 @@ class SG_Related_Content{
 
         if(is_singular('post')){
             wp_enqueue_script('sd-related-content-script', plugin_dir_url(__FILE__) . '/front.js', ['jquery'],false, true);
-            
+
             wp_localize_script(
                 'sd-related-content-script', 
                 'related_content_object',
                 [
                     'ajax_url' => admin_url( 'admin-ajax.php' ),
-                    'post_id' => $post->ID ?? null
+                    'post_id' => $post->ID ?? null,
+                    'loading_mode' => $this->get_settings('loading_mode')
                 ] 
             );
 
@@ -99,7 +102,12 @@ class SG_Related_Content{
     private function get_widget_html($post, $related_posts_query, $args = [])
     {
         ob_start();
-        include __DIR__ . '/template.php';
+        if($this->get_settings('loading_mode') == 'ajax'){
+            include __DIR__ . '/template-ajax.php';
+        }else{
+            include __DIR__ . '/template.php';
+        }
+        
         $output = ob_get_clean();
         wp_reset_postdata();
         return $output;
@@ -224,7 +232,9 @@ class SG_Related_Content{
     {
         $count = filter_input(INPUT_GET, 'count', FILTER_SANITIZE_NUMBER_INT);
         $post_id = filter_input(INPUT_GET, 'post_id', FILTER_SANITIZE_NUMBER_INT);
-
+        if(empty($count) || $count > 12){
+            $count = 4;
+        }
         $related_posts_query = $this->get_related_posts_query($post_id, $count);
 
         $entries = [];
@@ -263,7 +273,8 @@ class SG_Related_Content{
         if(empty($settings)){
             $settings = [
                 'post_count' => 4,
-                'display_position' => 'inside_post_bottom'
+                'display_position' => 'inside_post_bottom',
+                'loading_mode' => 'ajax'
             ];
             update_option($this->optionsKey, $settings);
         }

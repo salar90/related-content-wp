@@ -1,5 +1,8 @@
 (function($){
 
+    if(related_content_object.loading_mode != 'ajax'){
+        return;
+    }
 
     function loadPosts()
     {
@@ -22,6 +25,7 @@
                     image.attr('src', v.thumbnail);
                     image.attr('srcset', v.srcset);
                     image.appendTo(anchor);
+                    anchor.append(`<span>${v.title}</span>`);
                     $('<li>').append(anchor).appendTo(list);
 
                 });
