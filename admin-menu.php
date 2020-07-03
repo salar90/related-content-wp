@@ -25,8 +25,8 @@
     <label>
         <?php _e('Loading mode', 'related-content') ?>
         <select name="loading_mode" id="loading_mode">
-            <option <?php selected(SG_related_content()->get_settings('loading_mode'), 'ajax') ?> value="ajax">Ajax</option>
-            <option <?php selected(SG_related_content()->get_settings('loading_mode'), 'static') ?>  value="static">Static</option>
+            <option <?php selected(SG_related_content()->get_settings('loading_mode'), 'ajax') ?> value="ajax"><?php _e('Ajax', 'related-content') ?></option>
+            <option <?php selected(SG_related_content()->get_settings('loading_mode'), 'static') ?>  value="static"><?php _e('Static', 'related-content') ?></option>
         </select>
     </label>
 </div>
