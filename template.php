@@ -17,7 +17,4 @@ if($related_posts_query->have_posts()):
 <?php endwhile ?>
 </ul>
 </div>
-
-<?php else: ?>
-no related posts
 <?php endif ?>
