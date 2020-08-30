@@ -13,14 +13,8 @@ class SG_Related_Content{
 
     public function register_hooks()
     {
-        // Admin hooks
-        if(is_admin()){
 
-        }
-
-        add_action( 'admin_menu', [$this, 'register_menu_page'] );
-        
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue_admin_styles'] );
+        add_action( 'customize_register', [$this, 'customize_register'] );
         
         add_action('wp_ajax_nopriv_sg_related_posts', [$this, 'related_posts_ajax']);
         add_action('wp_ajax_sg_related_posts', [$this, 'related_posts_ajax']);
@@ -31,41 +25,6 @@ class SG_Related_Content{
         add_action('wp_enqueue_scripts', [$this, 'enqueue_front_styles']);
     }
 
-    function menu_page()
-    {
-        $is_submit = filter_input(INPUT_POST, 'sg_related_content_save') == '1';
-
-        if($is_submit){
-            $newSettings = [
-                'display_position' => filter_input(INPUT_POST, 'display_position'),
-                'post_count' => filter_input(INPUT_POST, 'post_count'),
-                'loading_mode' => filter_input(INPUT_POST, 'loading_mode'),
-                
-            ];
-            update_option($this->optionsKey, $newSettings);
-        }
-
-        include __DIR__ . '/admin-menu.php';
-    }
-
-    function enqueue_admin_styles( $hook ) {
-        if ( 'toplevel_page_related-content' != $hook ) {
-            return;
-        }
-        wp_enqueue_style( 'related_content', plugin_dir_url( __FILE__ ) . 'admin-styles.css' );
-    }
-
-    function register_menu_page() {
-        add_menu_page(
-            __( 'Related Content', 'related-content' ),
-            __( 'Related Content', 'related-content' ),
-            'manage_options',
-            'related-content',
-            [$this, 'menu_page'],
-            'dashicons-admin-links',
-            6
-        );
-    }
 
     function enqueue_front_styles(){
         global $post;
@@ -285,6 +244,11 @@ class SG_Related_Content{
             return $settings[$key];
         }
         return null;
+    }
+
+    public function customize_register($wp_customize)
+    {
+        include __DIR__ . '/customizer.php';
     }
 
 } 
