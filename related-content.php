@@ -5,6 +5,7 @@ Description: Display Related content, articles and products from your site and o
 Author: Salar Gholizadeh
 Version: 0.1
 Author URI: http://salar.one/
+Requires at least: 4.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 Text Domain: related-content
