@@ -18,6 +18,8 @@ class SG_Related_Content{
 
         }
 
+        add_action( 'customize_register', [$this, 'customize_register'] );
+
         add_action( 'admin_menu', [$this, 'register_menu_page'] );
         
         add_action( 'admin_enqueue_scripts', [$this, 'enqueue_admin_styles'] );
@@ -285,6 +287,11 @@ class SG_Related_Content{
             return $settings[$key];
         }
         return null;
+    }
+
+    public function customize_register($wp_customize)
+    {
+        include __DIR__ . '/customizer.php';
     }
 
 } 
