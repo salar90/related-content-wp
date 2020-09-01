@@ -166,15 +166,16 @@ class SG_Related_Content{
         usort($posts, function($a, $b){
             return $b['power'] - $a['power'];
         });
+        
+        $posts = array_filter($posts, function($postItem)use($post){
+            return $postItem['id'] != $post->ID;
+        });
+
         $posts = array_slice($posts,0, $post_limit);
 
         $post_ids = array_map(function($post){
             return $post['id'];
         }, $posts);
-
-        $post_ids = array_filter($post_ids, function($id)use($post){
-            return $post->ID != $id;
-        });
 
         
 
@@ -194,8 +195,10 @@ class SG_Related_Content{
     {
         $count = filter_input(INPUT_GET, 'count', FILTER_SANITIZE_NUMBER_INT);
         $post_id = filter_input(INPUT_GET, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+        
+
         if(empty($count) || $count > 12){
-            $count = 4;
+            $count = $this->get_settings('post_count');
         }
         $related_posts_query = $this->get_related_posts_query($post_id, $count);
 

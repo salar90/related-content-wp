@@ -48,7 +48,7 @@ $wp_customize->add_control($this->optionsKey . '_loading_mode', array(
 $wp_customize->add_setting( $this->optionsKey . '[post_count]', array(
     'default'        => '4',
     'capability'     => 'edit_theme_options',
-    'type'           => 'number'
+    'type'           => 'option'
 ));
 
 $wp_customize->add_control($this->optionsKey .'_post_count', array(
