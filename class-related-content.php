@@ -48,31 +48,26 @@ class SG_Related_Content{
 
     function the_content_filter($content)
     {
+        if($this->get_settings('display_mode') == 'disabled'){
+            return $content;
+        }
+
         global $post;
         if(empty($post) || !is_singular('post')){
             return $content;
         }
-        $related_posts_query = $this->get_related_posts_query();
-        $content .= $this->get_widget_html($post, $related_posts_query);
-        wp_reset_postdata();
-        return $content;
-    }
 
-    private function get_widget_html($post, $related_posts_query, $args = [])
-    {
-        if($this->get_settings('display_mode') == 'disabled'){
-            return;
-        }
         ob_start();
         if($this->get_settings('loading_mode') == 'ajax'){
             include __DIR__ . '/template-ajax.php';
         }else{
+            $related_posts_query = $this->get_related_posts_query();
             include __DIR__ . '/template.php';
         }
-        
-        $output = ob_get_clean();
+        $html = ob_get_clean();
         wp_reset_postdata();
-        return $output;
+
+        return $content . $html;
     }
 
     private function get_related_posts_query($post_id = null, $post_limit = 4)
