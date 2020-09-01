@@ -2,7 +2,7 @@
 Contributors: salar6990
 Tags: tags, related content, related posts, related
 Requires at least: 4.6
-Tested up to: 5.4.1
+Tested up to: 5.5
 Stable tag: 1.0.0
 Requires PHP: 5.6
 License: GPLv3 or later
@@ -12,13 +12,21 @@ If you're looking for a smart and quich way to display related posts from your b
 
 == Description ==
 
-Related Content plugin gives smartly-chosen related posts with minimum impact on your site performance as it uses Ajax calls.
+Want to display precise related posts from your website without manually selecting posts?
+
+Ultimate Related Content plugin gives smartly-chosen related posts from your website using an effective mixture of factors from tags, categories, and entry titles. 
+
+You can easily controll how many related entries to show on each page and other settings from 
+related content section in WordPress's native customizer panel.
+
+With minimum impact on your website performance, you can also choose whether to show posts statically or via 
+Ajax calls. 
 
 
 == Frequently Asked Questions ==
 
 = What makes Related Content different? =
-it looks for related content in a more efective way. Also It's developed with performace in mind.
+it looks for related content in a more efective way. It's also developed with performance in mind.
 
 
 == Changelog ==

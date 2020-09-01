@@ -1,11 +1,12 @@
 <?php
 /*
-Plugin Name: Related Content and Products
-Description: Display Related content, articles and products from your site and optionally other web sites.
+Plugin Name: Ultimate Related Content
+Description: Display Related posts and articles from your website.
 Author: Salar Gholizadeh
-Version: 0.1
-Author URI: http://salar.one/
-Requires at least: 4.4
+Version: 1.0
+Author URI: https://salar.one/
+Requires at least: 4.6
+Tested up to: 5.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 Text Domain: related-content
