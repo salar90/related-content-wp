@@ -232,7 +232,7 @@ class SG_Related_Content{
         if(empty($settings)){
             $settings = [
                 'post_count' => 4,
-                'display_position' => 'inside_post_bottom',
+                'display_mode' => 'post_bottom',
                 'loading_mode' => 'ajax'
             ];
             update_option($this->optionsKey, $settings);
