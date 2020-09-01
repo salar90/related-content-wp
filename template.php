@@ -11,7 +11,7 @@ if($related_posts_query->have_posts()):
 <li>
     <a href="<?php the_permalink() ?>">
         <?php the_post_thumbnail() ?>
-        <?php the_title() ?>
+        <span><?php the_title() ?></span>
     </a>
 </li>
 <?php endwhile ?>
