@@ -60,6 +60,9 @@ class SG_Related_Content{
 
     private function get_widget_html($post, $related_posts_query, $args = [])
     {
+        if($this->get_settings('display_mode') == 'disabled'){
+            return;
+        }
         ob_start();
         if($this->get_settings('loading_mode') == 'ajax'){
             include __DIR__ . '/template-ajax.php';
