@@ -61,7 +61,7 @@ class SG_Related_Content{
         if($this->get_settings('loading_mode') == 'ajax'){
             include __DIR__ . '/template-ajax.php';
         }else{
-            $related_posts_query = $this->get_related_posts_query();
+            $related_posts_query = $this->get_related_posts_query($post->ID, $this->get_settings('post_count'));
             include __DIR__ . '/template.php';
         }
         $html = ob_get_clean();
