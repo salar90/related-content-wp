@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 function related_content_load_plugin_textdomain() {
-    load_plugin_textdomain( 'related-content', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+    load_plugin_textdomain( 'ultimate-related-content', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'related_content_load_plugin_textdomain' );
 
