@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /** Main Section */
 $wp_customize->add_section('sg_related_content', array(
     'title'    => __('Related Content', 'related-content'),

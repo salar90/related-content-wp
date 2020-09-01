@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if($related_posts_query->have_posts()):
 ?>
 <div class="sg_related_posts">
