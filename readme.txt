@@ -1,4 +1,4 @@
-=== Better RTL Support ===
+=== Ultimate Related Content ===
 Contributors: salar6990
 Tags: tags, related content, related posts, related
 Requires at least: 4.6
