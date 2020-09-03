@@ -1,8 +1,13 @@
 <?php
+
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if($related_posts_query->have_posts()):
 ?>
 <div class="sg_related_posts">
-<h3 class="sg_related_posts_title"><?php apply_filters('sg_related_content_widget_title', _e('You might also read', 'related-content')) ?></h3>
+<h3 class="sg_related_posts_title"><?php apply_filters('sg_related_content_widget_title', _e('You might also read', 'ultimate-related-content')) ?></h3>
 <ul class="sg_related_posts_list">
 <?php 
     while($related_posts_query->have_posts()):

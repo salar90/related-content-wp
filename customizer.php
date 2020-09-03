@@ -1,9 +1,12 @@
-
 <?php
+
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 /** Main Section */
 $wp_customize->add_section('sg_related_content', array(
-    'title'    => __('Related Content', 'related-content'),
+    'title'    => __('Related Content', 'ultimate-related-content'),
     'priority' => 120,
 ));
 
@@ -15,13 +18,13 @@ $wp_customize->add_setting( $this->optionsKey . '[display_mode]', array(
 ));
 
 $wp_customize->add_control($this->optionsKey . '_display_mode', array(
-    'label'      => __('Display mode', 'related-content'),
+    'label'      => __('Display mode', 'ultimate-related-content'),
     'section'    => 'sg_related_content',
     'settings'   =>  $this->optionsKey . '[display_mode]',
     'type'    => 'select',
     'choices' => array(
-        'post_bottom' => __('After Post Content', 'related-content'),
-        'disabled' => __('Disabled', 'related-content'),
+        'post_bottom' => __('After Post Content', 'ultimate-related-content'),
+        'disabled' => __('Disabled', 'ultimate-related-content'),
     ),
 ));
 
@@ -34,13 +37,13 @@ $wp_customize->add_setting( $this->optionsKey . '[loading_mode]', array(
 ));
 
 $wp_customize->add_control($this->optionsKey . '_loading_mode', array(
-    'label'      => __('Loading mode', 'related-content'),
+    'label'      => __('Loading mode', 'ultimate-related-content'),
     'section'    => 'sg_related_content',
     'settings'   =>  $this->optionsKey . '[loading_mode]',
     'type'    => 'select',
     'choices' => array(
-        'ajax' => __('Ajax', 'related-content'),
-        'static' => __('Static', 'related-content'),
+        'ajax' => __('Ajax', 'ultimate-related-content'),
+        'static' => __('Static', 'ultimate-related-content'),
     ),
 ));
 
@@ -52,7 +55,7 @@ $wp_customize->add_setting( $this->optionsKey . '[post_count]', array(
 ));
 
 $wp_customize->add_control($this->optionsKey .'_post_count', array(
-    'label'      => __('Post count', 'related-content'),
+    'label'      => __('Post count', 'ultimate-related-content'),
     'section'    => 'sg_related_content',
     'settings'   => $this->optionsKey .'[post_count]',
 ));
