@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Related Content
 Description: Display Related posts and articles from your website.
 Author: Salar Gholizadeh
-Version: 1.0
+Version: 1.0.1
 Author URI: https://salar.one/
 Requires at least: 4.6
 Tested up to: 5.5
